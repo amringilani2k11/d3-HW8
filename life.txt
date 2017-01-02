@@ -1,0 +1,20 @@
+[
+	{"region": "Sub-Saharan Africa", "years": 58 },
+	{"region": "Fragile and conflict affected situations", "years": 62 },
+	{"region": "Other small states", "years": 62 },
+	{"region": "Least developed countries: UN classification", "years": 63 },
+	{"region": "Small states", "years": 65 },
+	{"region": "South Asia", "years": 68 },
+	{"region": "Pacific island small states", "years": 70 },
+	{"region": "Arab World", "years": 71 },
+	{"region": "World", "years": 71 },
+	{"region": "Caribbean small states", "years": 72 },
+	{"region": "Europe & Central Asia", "years": 72 },
+	{"region": "Middle East & North Africa", "years": 72 },
+	{"region": "East Asia & Pacific", "years": 74 },
+	{"region": "Latin America & Caribbean", "years": 74 },
+	{"region": "Central Europe and the Baltics", "years": 76 },
+	{"region": "European Union", "years": 80 },
+	{"region": "OECD members", "years": 80 },
+	{"region": "Euro area", "years": 81 }
+]

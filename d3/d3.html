@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 14px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+/* For further reading, visit: https://github.com/mbostock/d3/wiki/API-Reference */
+
+var margin = {top: 20, right: 20, bottom: 300, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 1000 - margin.top - margin.bottom;
+
+
+/*
+  Create scale for x-axis element
+    with markings from 0
+    going upto `width`
+    with a padding between bars of 0.1
+*/
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], 0.1);
+
+
+/*
+  Create scale for y-axis element
+    with markings from 0
+    going upto `height`
+*/
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+
+/*
+  Create x-axis using the above created scales
+*/
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+
+/*
+  Create y-axis using the above created scales
+*/
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+
+/*
+  Create <svg> element to create graphs.
+  Set `width` and `height` for <svg> element.
+
+  Append <g> element (group element) and center it - this will hold the text and bars
+*/
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+/*
+  Asynchronously load data from `life.json`
+*/
+d3.json("life.txt", function(error, data) {
+  if (error) throw error;
+
+
+  /*
+    From the loaded data,
+      extract (x, y) markings
+    x - names of regions
+    y - value of average life
+  */
+  x.domain(data.map(function(d) { return d.region; }));
+  y.domain([0, d3.max(data, function(d) { return d.years; })]);
+
+
+  /*
+    Select previously created <g> element
+      set `class` to ".x.axis"
+      move it to bottom
+      plot data - region names - by creating <text> elements
+
+      edit height, width and transform properties of created text objects
+  */
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-65)" );
+
+
+  /*
+    Select previously created <g> element
+      set `class` to ".y.axis"
+      move it to bottom
+      plot data - average life - by creating <text> elements
+
+      edit height, width properties of created text objects
+  */
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Years");
+
+
+  /*
+    Select all elements with class `bar` - currently no such elements exist
+    create <rect> elements with same class from `data`
+      change their `class`
+      change bar's x, y, width and height property
+  */
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.region); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.years); })
+      .attr("height", function(d) { return height - y(d.years); });
+});
+
+</script>

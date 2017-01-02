@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000px" height="100px">
+	<rect x="30px" y="0px" id="x" width="965px" height="30px" fill="red" style="stroke-width: 0;" />
+	<rect x="30px" y="35px" id="y" width="965px" height="30px" fill="red" style="stroke-width: 0;" />
+	<rect x="30px" y="70px" id="z" width="965px" height="30px" fill="red" style="stroke-width: 0;" />
+	<text fill="black" x="5" y="25px" style="font-family: Arial; font-size: 24px;">X</text>
+	<text fill="black" x="5" y="60px" style="font-family: Arial; font-size: 24px;">Y</text>
+	<text fill="black" x="5" y="95px" style="font-family: Arial; font-size: 24px;">Z</text>
+</svg>
